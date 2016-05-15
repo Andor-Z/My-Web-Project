@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+<!--{% block title %}{{ title }}{% endblock %}-->
+
+{% block page_content %}
+
+<div class="page-header">
+<!--<div class="jumbotron">-->
+    <h1>欢迎来到{{ title }}</h1>
+</div>
+<table class="table table-striped">
+    <caption></caption>
+    <tr>
+        <th>发生时间</th>
+        <th>部门</th>
+        <th>分类</th>
+        <th>备注</th>
+        <th>金额</th>
+        <th>当事人</th>
+    </tr>
+    <tr>
+         <!--{{ wtf.quick_form(form) }}-->
+        <form action="" method="post" name="">
+         {{ form.hidden_tag() }}
+        <td>{{ form.event_time }}</td>
+        <td>{{ form.dept_name }}</td>
+        <td>{{ form.cost_label }}</td>
+        <td>{{ form.cost_detail }}</td>
+        <td>{{ form.cost_money }}</td>
+        <td>{{ form.party_employee }}</td>
+        <td>{{ form.submit }}</td>
+            <!--<td><input type="submit" value="ok"></td>-->
+        </form>
+    </tr>
+    {% for cost in costs %}
+        <tr>
+            <td>{{ cost.event_time }}</td>
+            <td>{{ cost.dept.dept_name }}</td>
+            <td>{{ cost.cost_label }}</td>
+            <td>{{ cost.cost_detail }}</td>
+            <td>{{ cost.cost_money }}</td>
+            <td>{{ cost.employee.employee_name }}</td>
+        </tr>
+    {% endfor %}
+    <tr>
+        
+    </tr>
+</table>
+
+
+    <!--</div>-->
+{% endblock %}
+
+
+
+
+
+{#
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "_macros.html" as macros %}
+
+<div class="page-header">
+    <h1>Hello, {% if current_user.is_authenticated %}{{ current_user.username }}{% else %}Stranger{% endif %}!</h1>
+</div>
+<div>
+    {% if current_user.can(Permission.WRITE_ARTICLES) %}
+    {{ wtf.quick_form(form) }}
+    {% endif %}
+</div>
+<div class="post-tabs">
+    <ul class="nav nav-tabs">
+        <li{% if not show_followed %} class="active"{% endif %}><a href="{{ url_for('.show_all') }}">All</a></li>
+        {% if current_user.is_authenticated %}
+        <li{% if show_followed %} class="active"{% endif %}><a href="{{ url_for('.show_followed') }}">Followers</a></li>
+        {% endif %}
+    </ul>
+    {% include '_posts.html' %}
+</div>
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, '.index') }}
+</div>
+{% endif %}
+
+
+{% block scripts %}
+{{ super() }}
+{{ pagedown.include_pagedown() }}
+{% endblock %}
+#}
