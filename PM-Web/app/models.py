@@ -1,4 +1,4 @@
-from . import db, login_manager
+from . import db
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
@@ -25,7 +25,7 @@ class Employee(UserMixin, db.Model):
     # UserMixin 解决登陆的一些问题。
     __tablename__ = 'info_employee'
     employee_id = db.Column(db.Integer, primary_key=True)
-    login_name = db.Column(db.String(64), unique=True, index=True)
+    login_name = db.Column(db.String(64))
     employee_name = db.Column(db.String(64))
     member_since = db.Column(db.DateTime(), default=datetime.utcnow)
     password_hash = db.Column(db.String(128))
@@ -45,13 +45,6 @@ class Employee(UserMixin, db.Model):
     def verify_password(self, password):
         return check_password_hash(self.password_hash, password)
 
-
-@login_manager.user_loader
-def load_user(empl_id):
-    # login_manager的回调函数，主要用于用户方法的get_id()
-    # 回调函数接收以 Unicode 字符串形式表示的用户标识符。如果能找到用户，这个函数必须返回用户对象；否则应该返回 None。
-    # get_id()返回用户的唯一标识符，使用 Unicode 编码字符串
-    return Employee.query.get(int(empl_id))
 
 
 

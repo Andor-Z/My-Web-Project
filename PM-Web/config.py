@@ -8,7 +8,7 @@ class Config:
     # SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     # 每次 request 自动提交 db.session.commit()
-    WEB_TITLE = 'Cost Management'
+    WEB_TITLE = 'PM-Web'
     NUM_PER_PAGE = 15
 
     # @staticmethod
@@ -21,7 +21,7 @@ class Config:
 class DevelopmentConfig(Config):
     DEBUG = True
     # SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
-    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:930716@localhost/cm_web_dev'
+    SQLALCHEMY_DATABASE_URI = 'mysql+pymysql://root:930716@localhost/'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 
