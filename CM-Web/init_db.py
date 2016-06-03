@@ -2,6 +2,7 @@ from app.models import Role, Employee, Department, Cost
 from app import db
 from random import seed, randint, uniform
 import forgery_py
+import time
 
 
 def dept_fake(count=10):
@@ -21,7 +22,7 @@ def employee_fake(count=20):
         e = Employee(
             password=forgery_py.lorem_ipsum.word(),
             employee_name=forgery_py.name.full_name(),
-            login_name=forgery_py.name.first_name(),
+            login_name=forgery_py.name.full_name(),
             member_since=forgery_py.date.date(True),
             dept=d)
         db.session.add(e)
@@ -51,6 +52,8 @@ def cost_fake(count=100):
 def init_db():
     db.drop_all()
     db.create_all()
+    Role.insert_roles()
+    Employee.create_admin()
     dept_fake()
     employee_fake()
     cost_fake()

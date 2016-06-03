@@ -17,7 +17,7 @@ class CostForm(Form):
     def __init__(self):
         super(CostForm, self).__init__()
         self.dept_name.choices = [(dept.dept_id, dept.dept_name) for dept in Department.query.order_by(Department.dept_name).all()]
-        self.party_employee.choices = [(emp.employee_id, emp.employee_name) for emp in Employee.query.order_by(Employee.employee_name).all()]
+        self.party_employee.choices = [(emp.id, emp.employee_name) for emp in Employee.query.order_by(Employee.employee_name).all()]
 
 
 class LoginForm(Form):
@@ -34,6 +34,7 @@ class AddEmployee(Form):
     password2 = PasswordField('确认密码', validators=[DataRequired()])
     dept_name = SelectField('部门', coerce=int, validators=[DataRequired()])
     role_name = SelectField('职位', coerce=int, validators=[DataRequired()])
+    submit = SubmitField('确认')
 
     def __init__(self):
         super(AddEmployee, self).__init__()
@@ -44,3 +45,7 @@ class AddEmployee(Form):
         # 如果表单类中定义了以validate_ 开头且后面跟着字段名的方法，这个方法就和常规的验证函数一起调用。
         if Employee.query.filter_by(login_name=filed.data).first():
             raise ValidationError('此登录名已存在。')
+
+    def validate_employee_name(self, filed):
+        if Employee.query.filter_by(employee_name=filed.data).first():
+            raise ValidationError('此姓名已经存在。')

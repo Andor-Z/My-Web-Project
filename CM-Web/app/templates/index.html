@@ -23,10 +23,9 @@
     <tr>
          <!--{{ wtf.quick_form(form) }}-->
         <form class="form-inline" action="" method="post" name="">
-
          {{ form.hidden_tag() }}
         <td><div class="form-group">{{ form.event_time }}</div></td>
-        <td>{{ form.dept_name }}</td>
+        <td>{{ form.dept_name(class="form-inline") }}</td>
         <td>{{ form.cost_label }}</td>
         <td>{{ form.cost_detail }}</td>
         <td>{{ form.cost_money }}</td>

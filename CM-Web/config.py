@@ -8,6 +8,8 @@ class Config:
     # SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     # 每次 request 自动提交 db.session.commit()
+    ADMIN_NAME = 'admin'
+    ADMIN_PASSWORD = 'admin'
     WEB_TITLE = 'Cost Management'
     NUM_PER_PAGE = 15
 
